@@ -1,0 +1,171 @@
+// 'use strict'
+
+var bd;
+var jsonCopia = [];
+
+class Registro{
+  constructor( codigo , diagnostico , seguimiento , comentario ){
+    this.codigo = codigo;
+    this.diagnostico = diagnostico;
+    this.seguimiento = seguimiento;
+    this.comentario  = comentario;
+  }
+}
+
+
+// actualizarbtn.addEventListener("click", mostrar, false);
+
+const iniciar = function (){
+  if (!window.indexedDB) {
+      window.alert("Su navegador no soporta una versión estable de indexedDB. Tal y como las características no serán validas");
+  }
+  var zonadatos = document.getElementById("zonadatos");
+//  var formulario = document.getElementById("formulario");
+
+  formulario.addEventListener("submit", agregarObjeto, false);
+  actualizarbtn = document.getElementById("actualizar");
+  console.log(actualizarbtn);
+  actualizarbtn.addEventListener("click", mostrar, false);
+  formConsultasDiag.addEventListener("submit" , consultarD , false);
+  formConsultasSeg.addEventListener("submit" , consultarS , false);
+//  alert("iniciando");
+
+  var solicitud = indexedDB.open("citoginedb" , 1 );
+
+  solicitud.onsuccess=function(e){
+
+    bd = e.target.result;
+    mostrar();
+
+  }
+
+  solicitud.onupgradeneeded=function(e){
+
+    bd = e.target.result;
+     var objectStore = bd.createObjectStore("citogine", { keyPath : 'codigo'});
+     objectStore.createIndex("diagnostico" , "diagnostico" , { unique : false });
+     objectStore.createIndex("seguimiento" , "seguimiento" , { unique : false });
+
+  }
+
+//  setTimeout(mostrar, 500);
+}
+
+const agregarObjeto = (evt)=>{
+  evt.preventDefault();
+//  alert(diagnostico.value);
+/*
+var codigo = document.getElementById("codigo");
+var diagnostico = document.getElementById("diagnostico ");
+var seguimiento= document.getElementById("seguimiento");
+var comentario= document.getElementById("comentario");
+*/
+
+registro = new Registro(codigo.value , diagnostico.value ,
+   seguimiento.value , comentario.value );
+//   registro.id = 1;
+   console.log(registro);
+//   var myJSON = JSON.stringify(registro);
+//   console.log(myJSON);
+
+  var transaccion = bd.transaction(["citogine"] , "readwrite");
+  var almacen = transaccion.objectStore("citogine");
+/*  var agregar = almacen.add({ codigo : codigo ,
+                diagnostico : diagnostico ,
+                seguimiento : seguimiento ,
+              comentario : comentario });
+*/
+var agregar = almacen.add( registro );
+
+
+
+  agregar.addEventListener("success" , mostrar, false);
+
+  formulario.reset(function(event) {
+    console.log("Formulario resetesdo.");
+  });
+
+}
+
+
+function mostrar(){
+
+  zonadatos.innerHTML = "";
+
+  var transaccion = bd.transaction(["citogine"] , "readonly");
+  var almacen = transaccion.objectStore("citogine");
+  var cursor = almacen.openCursor();
+  cursor.addEventListener( "success" , mostrarDatos, false);
+
+}
+
+function mostrarDatos (e){
+
+
+  var cursor = e.target.result;
+  if(cursor){
+//    jsonCopia.push(copiadb);
+//    console.log(jsonCopia);
+    zonadatos.innerHTML +=
+     "<div> <span class = 'epigrafe'>Codigo : </span><span class ='valor'>" + cursor.value.codigo +
+     " </span><span class = 'epigrafe'> , Diagnostico : </span><span class ='valor'>" + cursor.value.diagnostico +
+     " </span><span class = 'epigrafe'> , Seguimiento : </span><span class ='valor'>" + cursor.value.seguimiento +
+     " </span><span class = 'epigrafe'> , Comentario : </span><span class ='valor'>" + cursor.value.comentario +
+     "</span></div>";
+
+    cursor.continue();
+  }
+}
+
+const consultarD = event => {
+  event.preventDefault();
+  // alert("No implementada la consulta de diagnosticos.");
+
+    zonadatos.innerHTML = "";
+
+    var transaccion = bd.transaction(["citogine"] , "readonly");
+    var almacen = transaccion.objectStore("citogine");
+    var index = almacen.index("diagnostico");
+    var request = index.openCursor(consultaDiagnostico.value);
+//    var resDiag = almacen.get(consultaDiagnostico.value);
+//    var cursor = almacen.openCursor();
+    request.addEventListener( "success" , mostrarDatos, false);
+/*
+    request.onsuccess = function () {
+        var result = request.result;
+
+        if (result !== undefined) {
+        */
+/*            alert("ID: " + result.id + "\n\
+                   DNI " + result.dni + "\n\
+                   Name: " + result.name + "\n\
+                   Surname: " + result.surname);
+  */
+/*  console.log(result);
+      }
+      request.continue();
+    };
+*/
+}
+
+
+const consultarS = event => {
+  event.preventDefault();
+//  alert("No implementada la consulta de seguimientos.");
+
+    zonadatos.innerHTML = "";
+
+    var transaccion = bd.transaction(["citogine"] , "readonly");
+    var almacen = transaccion.objectStore("citogine");
+    var index = almacen.index("seguimiento");
+    var request = index.openCursor(consultaSeguimiento.value);
+//    var resDiag = almacen.get(consultaDiagnostico.value);
+//    var cursor = almacen.openCursor();
+    request.addEventListener( "success" , mostrarDatos, false);
+
+
+}
+
+
+
+window.addEventListener('load', iniciar, false);

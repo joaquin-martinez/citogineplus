@@ -1,0 +1,102 @@
+﻿  <!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <script src="javascript.jsj"></script>
+    <title>Estudio de citologias</title>
+  </head>
+  <body>
+
+  <div class="container">
+    <header>
+      <h1>Estudio de Citologias ginecologicas positivas.</h1>
+    </header>
+    <main>
+
+
+    <form action="" name="formulario" id="formulario" method="post" class="form" >
+      <fieldset >
+        <legend>Introducción de datos</legend>
+
+      <label for="codigo">Codigo:</label>
+      <input type="text" name="codigo" id="codigo" required = "required">
+      </br></br>
+      <label for="diagnostico">Diagnostico:</label>
+      <select name="diagnostico" id="diagnostico">
+        <option value="ASCUS">ASCUS</option>
+        <option value="LSIL">LSIL</option>
+        <option value="HSIL">HSIL</option>
+        <option value="ASCH">ASCH</option>
+        <option value="AGC">AGC</option>
+      </select>
+      </br></br>
+      <label for="seguimiento">Seguimiento:</label>
+      <select name="seguimiento" id="seguimiento">
+        <option value="NoBiopsia">No biopsia</option>
+        <option value="Negativo">Negativo</option>
+        <option value="CIN1">CIN1</option>
+        <option value="CIN2">CIN2</option>
+        <option value="CIN3">CIN3</option>
+        <option value="Infiltrante">Infiltrante</option>
+        <option value="Adeno">Adeno</option>
+      </select>
+      </br></br>
+      </fieldset>
+      <fieldset>
+        <legend>Comentario</legend>
+        <label for="comentario"></label>
+        <textarea name="comentario" id="comentario" ></textarea>
+        </br>
+      </fieldset>
+      <input type="submit" value="Guardar">
+
+
+    </form>
+    <button type="button" name="actualizar" id="actualizar">Cargar datos BD</button>
+
+  <form action=""  method="post" name="formConsultasDiag" id="formConsultasDiag">
+    <fieldset >
+        <legend>Consultas diagnostico</legend>
+        <label for="consultaDiagnostico">Diagnostico:</label>
+      <select name="consultaDiagnostico" id="consultaDiagnostico" >
+        <option value="ASCUS">ASCUS</option>
+        <option value="LSIL">LSIL</option>
+        <option value="HSIL">HSIL</option>
+        <option value="ASCH">ASCH</option>
+        <option value="AGC">AGC</option>
+      </select>
+    </fieldset>
+          <input type="submit" value="Consultar diagnosticos">
+            </form>
+    <form action=""  method="post" name="formConsultasSeg" id="formConsultasSeg">
+      <fieldset >
+          <legend>Consultas seguimiento</legend>
+
+      <label for="consultaSeguimiento">Seguimiento:</label>
+      <select name="consultaSeguimiento" id="consultaSeguimiento" >
+        <option value="NoBiopsia">No biopsia</option>
+        <option value="Negativo">Negativo</option>
+        <option value="CIN1">CIN1</option>
+        <option value="CIN2">CIN2</option>
+        <option value="CIN3">CIN3</option>
+        <option value="Infiltrante">Infiltrante</option>
+        <option value="Adeno">Adeno</option>
+      </select>
+      </br></br>
+      </fieldset>
+      <input type="submit" value="Consultar seguimientos">
+  </form>
+
+
+</main>
+  <div id="zonadatos" class="datos"></div>
+
+  <footer>
+    <h2>Es una aplicacion HTML5 para un estudio sobre las citologías ginecológicas positivas.</h2>
+  </footer>
+  </div>
+  </body>
+  </html>

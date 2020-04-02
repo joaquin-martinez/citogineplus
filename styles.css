@@ -1,0 +1,122 @@
+body {
+  background-color: #ffdd99;
+ /*
+}
+* {
+ */
+  padding: 0px;
+  margin: 0px;
+}
+
+textarea {
+  width: 100%;
+}
+
+.container {
+  height: 100vh;
+  display: grid;
+  grid-template-areas:
+      "header header"
+      "main datos"
+      "footer footer";
+  grid-template-columns: 1fr 3fr ;
+  grid-template-rows: 1fr 5fr 1fr ;
+  grid-gap: 2vw 2vh;
+//  grid-auto-rows: 150px ;
+//  background-color: green;
+}
+
+header {
+  grid-area: header;
+}
+
+footer {
+  grid-area: footer;
+}
+
+main {
+  grid-area: main;
+}
+
+.datos {
+  // margin: 0px;
+  // padding: 0px;
+  // display: inline-flex;
+  // flex-direction: column;
+
+  // justify-content: center;
+  // align-items: center;
+  grid-area: datos;
+  overflow: scroll;
+
+}
+/*
+.form {
+  grid-column: 2;
+  grid-row: 2;
+  background-color: darkturquoise;
+}
+
+.datos {
+  grid-column: 2;
+  grid-row: 3;
+  background-color: red;
+}
+*/
+
+.epigrafe , label{
+  font-weight: bold;
+  color: green;
+}
+
+.valor{
+  color: red;
+}
+
+input[type = submit] , button {
+  color : #ffffff;
+  width: 100%;
+  display: block;
+  background-color: #ff8000;
+  border: 3px solid #ffffff;
+  margin-top: 3px;
+  border-radius: 5px 5px;
+  box-shadow: 2px 2px 5px #999;
+}
+
+button:hover , input[type = submit]:hover {
+  font-weight: bold;
+    cursor: pointer;
+    color : #ff00ff;
+    background-color: #ffff80;
+}
+
+button:active , input[type = submit]:active {
+  background-color: #999900;
+  border: 4px solid #009999;
+}
+
+
+@media only screen and (max-width: 600px){
+
+  .container {
+    display: grid;
+    grid-template-columns: 100%;
+  //  grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 20vw;
+  //  grid-auto-rows: 150px ;
+  background-color: white;
+  }
+
+  .form {
+    grid-column: 1;
+    grid-row: 1;
+    background-color: green;
+  }
+
+  .datos {
+    grid-column: 1;
+    grid-row: 2;
+    background-color: blue;
+  }
+}
